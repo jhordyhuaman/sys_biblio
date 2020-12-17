@@ -17,6 +17,7 @@ import Model.Libro;
 import Model.Pais;
 import Model.Prestamo;
 import Model.Usuario;
+import Utils.PDFGen;
 import java.text.SimpleDateFormat;
 import utils.Leer;
 import utils.TableGenerator;
@@ -121,6 +122,33 @@ public class Index {
         System.out.println(tableGenerator.generateTable(headersList, rowsList));
     }
     
+    public static void pdfAutor(){
+        List<Autor> autors = Adao.listar();
+        System.out.println("Listado de Autores");
+        TableGenerator tableGenerator = new TableGenerator();
+        List<String> headersList = new ArrayList<>();
+      
+        headersList.add("Id");
+        headersList.add("Nombre");
+        headersList.add("Apellido");
+
+        List<List<String>> rowsList = new ArrayList<>();
+
+        for (Autor p : autors) {
+            List<String> row = new ArrayList<>();
+            
+            row.add(String.valueOf(p.getIdautor()));
+            row.add(format(p.getNombre().toUpperCase()));
+            row.add(format(p.getApellido().toUpperCase()));
+
+            rowsList.add(row);
+        }
+
+        String content = tableGenerator.generateTable(headersList, rowsList);
+        PDFGen pdf = new PDFGen();
+        pdf.generateReporte("Reporte Autores", content);
+        
+    }
     public static void listAutor() {
         List<Autor> autors = Adao.listar();
         System.out.println("Listado de Autores");
@@ -153,7 +181,13 @@ public class Index {
       
         headersList.add("Id");
         headersList.add("Nombre");
+        headersList.add("codigo");
+        headersList.add("direccion");
+        headersList.add("url");
         headersList.add("Estado");
+
+
+                        
 
         List<List<String>> rowsList = new ArrayList<>();
 
@@ -162,6 +196,9 @@ public class Index {
             
             row.add(String.valueOf(p.getIdeditorial()));
             row.add(format(p.getNombre().toUpperCase()));
+            row.add(p.getCodigo());
+            row.add(p.getDireccion());
+            row.add(p.getUrl());
             row.add(p.getEstado().toUpperCase());
 
             rowsList.add(row);
@@ -237,7 +274,13 @@ public class Index {
         nombre = Leer.cadena();    
         System.out.print("Estado: ");
         estado = Leer.cadena();
-        Editorial editorial = new Editorial(id,nombre, estado);
+        System.out.print("Dirreccion: ");
+        String direccion = Leer.cadena();
+        System.out.print("Codigo: ");
+        String codigo = Leer.cadena();
+        System.out.print("URL: ");
+        String URL = Leer.cadena();
+        Editorial editorial = new Editorial(id,nombre, estado,codigo,direccion,URL);
         Edao.editar(editorial);
     }
     public static void editAutor(){
@@ -465,7 +508,13 @@ public class Index {
         nombre = Leer.cadena();    
         System.out.print("Estado: ");
         estado = Leer.cadena();
-        Editorial editorial = new Editorial(nombre, estado);
+        System.out.print("Codigo: ");
+        String codigo = Leer.cadena();
+        System.out.print("Direccion: ");
+        String direccion = Leer.cadena();
+        System.out.print("url: ");
+        String url = Leer.cadena();
+        Editorial editorial = new Editorial(nombre, estado,codigo,direccion,url);
         Edao.agregar(editorial);
     }
     public static void addAutor(){
@@ -545,10 +594,10 @@ public class Index {
         }else{
         System.out.print("1. Listar");
         System.out.println("  - 2. Agregar");
-        System.out.print("3. Eliminar");
-        System.out.println(" - 4. Editar");  
+        System.out.print("3. Editar");
+        System.out.println(" - 4. Eliminar");  
         System.out.print("5. Atras");
-        System.out.println(""); 
+        System.out.println(" - 6. PDF reporte"); 
         System.out.println("===============================================");
         }
 
@@ -605,6 +654,9 @@ public class Index {
                         break;
                         case 4:
                             deleteAutor();
+                        break;
+                        case 6:
+                            pdfAutor();
                         break;
                     }
                 break;

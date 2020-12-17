@@ -37,6 +37,9 @@ public class EditorialDao implements CRUDEditorial{
                 editorial.setIdeditorial(rs.getInt("ideditorial"));
                 editorial.setNombre(rs.getString("nombre"));
                 editorial.setEstado(rs.getString("estado"));
+                editorial.setCodigo(rs.getString("codigo"));
+                editorial.setDireccion(rs.getString("direccion"));
+                editorial.setUrl(rs.getString("url"));
                 editorials.add(editorial);
             }
         } catch (Exception ex) {
@@ -60,6 +63,9 @@ public class EditorialDao implements CRUDEditorial{
                 bl.setIdeditorial(rs.getInt("idbiblioteca"));
                 bl.setNombre(rs.getString("nombre"));
                 bl.setEstado(rs.getString("estado"));
+                bl.setCodigo(rs.getString("codigo"));
+                bl.setDireccion(rs.getString("direccion"));
+                bl.setUrl(rs.getString("url"));
             }
         } catch (Exception ex) {
         }
@@ -69,9 +75,12 @@ public class EditorialDao implements CRUDEditorial{
 
     @Override
     public boolean agregar(Editorial e) {
-      String consulta = " insert into editorial(nombre estado)  "
+      String consulta = " insert into editorial(nombre estado codigo direccion url)  "
                 + " values( "
                 + "'"+ e.getNombre() +"', "
+                + "'"+ e.getCodigo()+"', "
+                + "'"+ e.getDireccion()+"', "
+                + "'"+ e.getUrl()+"', "
                 + "'"+ e.getEstado() +"') ";
         try {
             con = cn.getConnection();
@@ -88,6 +97,9 @@ public class EditorialDao implements CRUDEditorial{
          String consulta = " update editorial "
                 + " set "
                 + " nombre = '"+ e.getNombre() +"', "
+                 + " codigo = '"+ e.getCodigo()+"', "
+                 + " direccion = '"+ e.getDireccion()+"', "
+                 + " url = '"+ e.getUrl()+"', "
                 + " estado = '"+ e.getEstado() +"' "
                 + " where "
                 + " ideditorial = " + e.getIdeditorial()+ "; ";
