@@ -30,7 +30,7 @@ public class AutorDao implements CRUDAutor{
         
         try {
             con = cn.getConnection();
-            pst = con.prepareStatement("SELECT * FROM autor");
+            pst = con.prepareStatement("SELECT * FROM `autor` ORDER BY `autor`.`nombre` ASC");
             rs = pst.executeQuery();
             while (rs.next()) {
                 Autor autor = new Autor();

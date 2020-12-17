@@ -26,7 +26,7 @@ ConectaBd cn = new ConectaBd();
     @Override
     public List listar() {
         ArrayList<Usuario> models = new ArrayList<>();
-        String consulta = "SELECT * FROM usuario";
+        String consulta = "SELECT * FROM `usuario` ORDER BY `usuario`.`nombre` ASC";
         try {
             con = cn.getConnection();
             pst = con.prepareStatement(consulta);

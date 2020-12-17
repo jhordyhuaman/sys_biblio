@@ -18,7 +18,7 @@ public class LibroDAO implements CRUDLibro {
     @Override
     public List listar() {
         ArrayList<Libro> libros = new ArrayList<>();
-        String consulta = "select l.stock_disponibles, l.paginas, l.idlibro,l.titulo as nombre_libro,p.nombre as pais, a.apellidos as apellido_autor, a.nombre as nombre_autor, e.nombre as nombre_editorial, l.stock from libro l, autor a, editorial e, pais p where a.idautor = l.idautor and e.ideditorial = l.ideditorial and p.idpais = l.idpais";
+        String consulta = "select l.stock_disponibles, l.paginas, l.idlibro,l.titulo as nombre_libro,p.nombre as pais, a.apellidos as apellido_autor, a.nombre as nombre_autor, e.nombre as nombre_editorial, l.stock from libro l, autor a, editorial e, pais p where a.idautor = l.idautor and e.ideditorial = l.ideditorial and p.idpais = l.idpais  ORDER BY l.titulo ASC";
         try {
             con = cn.getConnection();
             pst = con.prepareStatement(consulta);
@@ -142,6 +142,17 @@ public class LibroDAO implements CRUDLibro {
         return true;
     }
 
-  
+    @Override
+    public boolean updateStock(Libro libro) {
+        String query = "UPDATE `libro` SET `stock_disponibles` = '"+libro.getCodigo()+"' WHERE `libro`.`idlibro` = "+libro.getIdlibro()+";";
+        try {
+            con = cn.getConnection();
+            pst = con.prepareStatement(query);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 
 }

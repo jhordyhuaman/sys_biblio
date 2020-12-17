@@ -11,4 +11,5 @@ public interface CRUDLibro {
     public boolean agregar(Libro libro);
     public boolean editar(Libro libro);
     public boolean eliminar(int id);
+    public boolean updateStock(Libro libro);
 }

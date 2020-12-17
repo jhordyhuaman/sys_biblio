@@ -52,7 +52,24 @@ public class PrestamoDAO implements CRUDPrestamo{
 
     @Override
     public Prestamo buscar(Prestamo p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Prestamo bl = new Prestamo();
+        try {
+            con = cn.getConnection();
+            pst = con.prepareStatement("select * from prestamo where idprestamo = "+p.getIdprestamo());
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                bl.setIdprestamo(rs.getInt("idprestamo"));
+                bl.setIdlibro(rs.getInt("idlibro"));
+                bl.setIdusuario(rs.getInt("idusuario"));
+                bl.setEstado(rs.getString("estado"));
+                bl.setFecha_prestamo(rs.getString("fecha_prestamo"));
+                bl.setFecha_devolucion(rs.getString("fecha_devolucion"));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return bl;
     }
 
     @Override
@@ -109,7 +126,6 @@ public class PrestamoDAO implements CRUDPrestamo{
                 + " where "
                 + " idprestamo = " + p.getIdprestamo()+ "; ";
              
-        System.err.println(consulta);
         try {
             con = cn.getConnection();
             pst = con.prepareStatement(consulta);

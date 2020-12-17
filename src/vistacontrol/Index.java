@@ -353,6 +353,12 @@ public class Index {
                       
                       if(Prdao.editar(prestamo)){
                         System.out.println("Devolucion registrado correctamente !! ");
+                        Prestamo pr = Prdao.buscar(prestamo);
+                        Libro lib = dao.buscar(new Libro(pr.getIdlibro()));
+                        lib.setCodigo(String.valueOf(Integer.parseInt(lib.getCodigo()) + 1)); // codigo == stockdiponibles 
+                        if(dao.updateStock(lib)){
+                            System.out.println("Actualizando stock OK !! ");
+                        }
                       }else{
                       }
 
@@ -401,6 +407,12 @@ public class Index {
                       prestamo.setEstado("P");
                       if(Prdao.agregar(prestamo)){
                         System.out.println("Prestamo registrado correctamente !! ");
+                        // update stock
+                        Libro lib = dao.buscar(libro);
+                        lib.setCodigo(String.valueOf(Integer.parseInt(lib.getCodigo()) - 1)); // codigo == stockdiponibles 
+                        if(dao.updateStock(lib)){
+                            System.out.println("Actualizando stock OK !! ");
+                        }
                       }
                   }  
        

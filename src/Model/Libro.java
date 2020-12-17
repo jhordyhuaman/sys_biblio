@@ -30,9 +30,12 @@ public class Libro {
     public Libro(String nombre) {
         this.nombre = nombre;
     }
-    
-    
 
+    public Libro(int idlibro) {
+        this.idlibro = idlibro;
+    }
+    
+    
     public Libro(int idlibro, String nombre, String codigo, String ISBN, String fecha_publicacion, int stock, double precio_compra, int idautor, int ideditorial, String estado, String autor, String editorial,String pais) {
         this.idlibro = idlibro;
         this.nombre = nombre;

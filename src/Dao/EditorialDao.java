@@ -30,7 +30,7 @@ public class EditorialDao implements CRUDEditorial{
         
         try {
             con = cn.getConnection();
-            pst = con.prepareStatement("SELECT * FROM editorial");
+            pst = con.prepareStatement("SELECT * FROM `editorial` ORDER BY `editorial`.`nombre` ASC");
             rs = pst.executeQuery();
             while (rs.next()) {
                 Editorial editorial = new Editorial();

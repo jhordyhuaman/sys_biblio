@@ -28,7 +28,7 @@ public class PaisDao implements CRUDPais{
         List<Pais> paises = new ArrayList<>();
         try {
             con = cn.getConnection();
-            pst = con.prepareStatement("SELECT * FROM pais");
+            pst = con.prepareStatement("SELECT * FROM `pais` ORDER BY `pais`.`nombre` ASC");
             rs = pst.executeQuery();
             while (rs.next()) {
                 Pais pais = new Pais();
