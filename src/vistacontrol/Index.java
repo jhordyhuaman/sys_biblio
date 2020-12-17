@@ -137,16 +137,16 @@ public class Index {
         for (Autor p : autors) {
             List<String> row = new ArrayList<>();
             
-            row.add(String.valueOf(p.getIdautor()));
-            row.add(format(p.getNombre().toUpperCase()));
-            row.add(format(p.getApellido().toUpperCase()));
+            row.add(format(String.valueOf(p.getIdautor())));
+            row.add(format(p.getNombre()));
+            row.add(format(p.getApellido()));
 
             rowsList.add(row);
         }
 
         String content = tableGenerator.generateTable(headersList, rowsList);
         PDFGen pdf = new PDFGen();
-        pdf.generateReporte("Reporte Autores", content);
+        pdf.generateReporte("Reporte Autores",headersList, rowsList);
         
     }
     public static void listAutor() {
@@ -769,6 +769,8 @@ public class Index {
         }
         return cadena;
     }
+    
+  
 
     public static String validate(String value,int max_length){
         String input = "";
